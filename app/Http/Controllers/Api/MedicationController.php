@@ -21,7 +21,7 @@ class MedicationController extends Controller
         // Pagination
         $perPage = $request->input('per_page', 15); // Default to 15 items per page
 
-        return MedicationResource::collection($query->paginate($perPage));
+        return MedicationResource::collection($query->latest()->paginate($perPage));
     }
 
     /**

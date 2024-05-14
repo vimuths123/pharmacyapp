@@ -28,5 +28,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('medications/{id}/force', [MedicationController::class, 'destroyPermanently'])->name('medications.forceDelete');
 
     Route::apiResource('customers', CustomerController::class);
+    Route::delete('customers/{id}/force', [CustomerController::class, 'destroyPermanently'])->name('customers.forceDelete');
 });
 
