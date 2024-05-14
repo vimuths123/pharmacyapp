@@ -18,6 +18,14 @@ class MedicationController extends Controller
     {
         $query = Medication::with('creator');
 
+        if ($request->input('with_trashed', false)) {
+            $query->withTrashed();
+        }
+
+        if ($request->input('only_trashed', false)) {
+            $query->onlyTrashed();
+        }
+
         // Pagination
         $perPage = $request->input('per_page', 15); // Default to 15 items per page
 
@@ -38,7 +46,7 @@ class MedicationController extends Controller
     {
         $validatedData = $request->validated();
         $validatedData['created_by'] = auth()->id();
-        
+
         $medication = Medication::create($validatedData);
 
         return response()->json([
