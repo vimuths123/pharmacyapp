@@ -103,7 +103,8 @@ class CustomerController extends Controller
     }
     
      /**
-     * Restore a soft deleted customer.
+     * Restore a soft deleted customer. Here we are not using Route Model binding since it will not consider 
+     * soft deleted items
      *
      * @param  string $id
      * @return \Illuminate\Http\JsonResponse
@@ -121,7 +122,8 @@ class CustomerController extends Controller
     }
 
     /**
-     * Permanently delete the customer.
+     * Permanently delete the customer. Here we are not using Route Model binding since it will not consider 
+     * soft deleted items
      *
      * @param  string $id
      * @return \Illuminate\Http\JsonResponse
