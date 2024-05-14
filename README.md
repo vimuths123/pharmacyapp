@@ -54,4 +54,7 @@ First you need to import the postman collection to the Postman. And you have to 
 
 After that you can run the application with postman collections.
 
+## Notes
 
+- Have created a restore method to restore soft deleted items. Only owner and manager has access to it.
+- Haven't use Route Model binding for delete and restore methods since it will not consider soft deleted items.
