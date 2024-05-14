@@ -100,20 +100,28 @@ class MedicationController extends Controller
     }
 
     /**
-     * Restore a soft deleted medication.
+     * Restore a soft deleted medication. Here we are not using Route Model binding since it will not consider 
+     * soft deleted items
      *
      * @param  string $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function restore(Medication $medication)
+    public function restore(string $id)
     {
+        $medication = Medication::withTrashed()->find($id);
+
+        if (!$medication) {
+            return response()->json(['error' => 'No medication found with the given ID'], 404);
+        }
+
         $medication->restore();
 
         return response()->json(['message' => 'Medication restored successfully'], 200);
     }
 
     /**
-     * Permanently delete the medication.
+     * Permanently delete the medication. Here we are not using Route Model binding since it will not consider 
+     * soft deleted items
      *
      * @param  string $id
      * @return \Illuminate\Http\JsonResponse

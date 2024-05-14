@@ -108,8 +108,13 @@ class CustomerController extends Controller
      * @param  string $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function restore(Customer $customer)
+    public function restore(string $id)
     {
+        $customer = Customer::withTrashed()->find($id);
+
+        if (!$customer) {
+            return response()->json(['error' => 'No Customer found with the given ID'], 404);
+        }
         $customer->restore();
 
         return response()->json(['message' => 'Customer restored successfully'], 200);
