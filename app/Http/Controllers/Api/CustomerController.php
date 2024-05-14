@@ -87,8 +87,8 @@ class CustomerController extends Controller
         $customer->update($request->validated());
 
         return response()->json([
-            'message' => 'Medication updated successfully',
-            'medication' => new CustomerResource($customer)
+            'message' => 'Customer updated successfully',
+            'customer' => new CustomerResource($customer)
         ], 200);
     }
 
@@ -99,11 +99,24 @@ class CustomerController extends Controller
     {
         $customer->delete();
 
-        return response()->json(['message' => 'Medication deleted successfully'], 200);
+        return response()->json(['message' => 'Customer deleted successfully'], 200);
+    }
+    
+     /**
+     * Restore a soft deleted customer.
+     *
+     * @param  string $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function restore(Customer $customer)
+    {
+        $customer->restore();
+
+        return response()->json(['message' => 'Customer restored successfully'], 200);
     }
 
     /**
-     * Permanently delete the medication.
+     * Permanently delete the customer.
      *
      * @param  string $id
      * @return \Illuminate\Http\JsonResponse

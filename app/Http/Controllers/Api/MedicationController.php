@@ -100,6 +100,19 @@ class MedicationController extends Controller
     }
 
     /**
+     * Restore a soft deleted medication.
+     *
+     * @param  string $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function restore(Medication $medication)
+    {
+        $medication->restore();
+
+        return response()->json(['message' => 'Medication restored successfully'], 200);
+    }
+
+    /**
      * Permanently delete the medication.
      *
      * @param  string $id

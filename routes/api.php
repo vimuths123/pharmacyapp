@@ -25,9 +25,11 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('medications', MedicationController::class);
-    Route::delete('medications/{id}/force', [MedicationController::class, 'destroyPermanently'])->name('medications.forceDelete');
+    Route::delete('medications/{id}/force', [MedicationController::class, 'destroyPermanently'])
+        ->name('medications.forceDelete');
+    Route::post('medications/{id}/restore', [MedicationController::class, 'restore'])->name('medications.restore');    
 
     Route::apiResource('customers', CustomerController::class);
     Route::delete('customers/{id}/force', [CustomerController::class, 'destroyPermanently'])->name('customers.forceDelete');
+    Route::post('customers/{id}/restore', [CustomerController::class, 'restore'])->name('customers.restore');
 });
-
