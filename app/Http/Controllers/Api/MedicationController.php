@@ -36,7 +36,10 @@ class MedicationController extends Controller
      */
     public function store(StoreMedicationRequest $request)
     {
-        $medication = Medication::create($request->validated());
+        $validatedData = $request->validated();
+        $validatedData['created_by'] = auth()->id();
+        
+        $medication = Medication::create($validatedData);
 
         return response()->json([
             'message' => 'Medication created successfully',

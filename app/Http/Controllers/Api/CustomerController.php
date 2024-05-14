@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Http\Resources\CustomerResource;
@@ -20,7 +21,7 @@ class CustomerController extends Controller
         // Pagination
         $perPage = $request->input('per_page', 15); // Default to 15 items per page
 
-        return CustomerResource::collection($query->paginate($perPage));
+        return CustomerResource::collection($query->latest()->paginate($perPage));
     }
 
     /**
@@ -36,11 +37,14 @@ class CustomerController extends Controller
      */
     public function store(StoreCustomerRequest $request)
     {
-        $medication = Customer::create($request->validated());
+        $validatedData = $request->validated();
+        $validatedData['created_by'] = auth()->id();
+
+        $customer = Customer::create($validatedData);
 
         return response()->json([
             'message' => 'Customer created successfully',
-            'customer' => new CustomerResource($medication)
+            'customer' => new CustomerResource($customer)
         ], 201);
     }
 

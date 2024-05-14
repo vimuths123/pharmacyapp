@@ -24,8 +24,7 @@ class StoreMedicationRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'description' => 'required|string',
-            'quantity' => 'required|integer|min:1',
-            'created_by' => 'required|exists:users,id' // Ensures the user ID exists in the database
+            'quantity' => 'required|integer|min:1'
         ];
     }
 }
