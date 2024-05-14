@@ -35,6 +35,12 @@ class Handler extends ExceptionHandler
             return response()->json(['error' => 'The requested resource with the id was not found'], 404);
         }
 
+        $this->renderable(function (\Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException $e, $request) {
+            if ($request->expectsJson()) { // Check if the request expects a JSON response
+                return response()->json(['message' => 'This action is unauthorized.'], 403);
+            }
+        });
+
         return parent::render($request, $exception);
     }
 }
