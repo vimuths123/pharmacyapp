@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,6 +22,7 @@ class CustomerFactory extends Factory
             'email' => $this->faker->unique()->safeEmail,
             'phone_number' => $this->faker->phoneNumber,
             'address' => $this->faker->address,
+            'created_by' => User::factory()
         ];
     }
 }
